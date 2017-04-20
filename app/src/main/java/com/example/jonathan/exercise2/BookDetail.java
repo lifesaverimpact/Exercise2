@@ -36,9 +36,9 @@ public class BookDetail extends AppCompatActivity {
             String myISBN = data.getExtras().getString("ISBN");
             String myPrice = data.getExtras().getString("price");
 
-            output_title.setText(myTitle);
-            output_ISBN.setText(myISBN);
-            output_price.setText(myPrice);
+            output_title.setText("Title: " + myTitle);
+            output_ISBN.setText("ISBN: " + myISBN);
+            output_price.setText("Price: $" + myPrice);
 
         }catch(Exception e){
             e.printStackTrace();

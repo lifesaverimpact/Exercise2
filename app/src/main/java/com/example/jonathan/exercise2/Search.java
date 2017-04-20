@@ -3,6 +3,7 @@ package com.example.jonathan.exercise2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -110,10 +111,10 @@ public class Search extends AppCompatActivity {
 
             data = getIntent();
             //checkName.setText(data.getStringExtra("loggedInName") + "님이(가) 로그인하셨습니다.");
-            checkName.setText( sessionID + "님이(가) 로그인하셨습니다.");  // 이거 야매로 그냥 username 만 받아온건데.. cookie-set 이거 알아봐야한다. 크리스한테 물어보자.
+            checkName.setText( "Welcome, " + sessionID + "!");  // 이거 야매로 그냥 username 만 받아온건데.. cookie-set 이거 알아봐야한다. 크리스한테 물어보자.
         }catch(Exception e){
             e.printStackTrace();
-            checkName.setText("다시로그인해주세요.");
+            checkName.setText("Please log in again.");
         }
 
         getIDAndTotal();
@@ -283,7 +284,7 @@ public class Search extends AppCompatActivity {
             }
 
             String testyString = String.valueOf(bookList.size());
-            testy.setText("Total number of books found = " + testyString);
+            testy.setText("We found " + testyString + " book(s)");
 
             /*
             ListAdapter adapter = new SimpleAdapter(
@@ -312,23 +313,24 @@ public class Search extends AppCompatActivity {
         //SearchAdapter myAdapter = new SearchAdapter(Search.this, bookList);
         goPurchase(myAdapter);
 
-
     }
 
     void goPurchase(SearchAdapter paramMyAdapter){
         //Toast.makeText(getApplicationContext(), sessionID, Toast.LENGTH_SHORT).show();
         //SearchAdapter myAdapter = new SearchAdapter(Search.this, bookList);
         SearchAdapter myAdapter = paramMyAdapter;
-        for(int i = 0; i < myAdapter.getCount(); i++ ){
-            if(myAdapter.getBookChecked(i)){
+        if(myAdapter != null){
 
-                HashMap<String, String> tempBook = (HashMap<String, String>) myAdapter.getItem(i);
-                JSONObject jsonBook = new JSONObject();
-                try{
-                    jsonBook.put(TAG_ISBN, tempBook.get(TAG_ISBN).toString());
-                    jsonBook.put("quantity", myAdapter.getBookQty(i));
-                    //JSONArray purchaseList = new JSONArray();
-                    //purchaseList.put(jsonBook);
+            for(int i = 0; i < myAdapter.getCount(); i++ ){
+                if(myAdapter.getBookChecked(i)){
+
+                    HashMap<String, String> tempBook = (HashMap<String, String>) myAdapter.getItem(i);
+                    JSONObject jsonBook = new JSONObject();
+                    try{
+                        jsonBook.put(TAG_ISBN, tempBook.get(TAG_ISBN).toString());
+                        jsonBook.put("quantity", myAdapter.getBookQty(i));
+                        //JSONArray purchaseList = new JSONArray();g
+                        //purchaseList.put(jsonBook);
 
 
 
@@ -340,14 +342,17 @@ public class Search extends AppCompatActivity {
 //                    myAdapter.notifyDataSetChanged();
 
 
-                    purchaseTask postPurchase = new purchaseTask();
-                    postPurchase.execute(jsonBook);
-                }
-                catch(Exception e){
-                    e.printStackTrace();
+                        purchaseTask postPurchase = new purchaseTask();
+                        postPurchase.execute(jsonBook);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
+
         }
+
     }
 
     private class purchaseTask extends AsyncTask<JSONObject, Void, Boolean> {

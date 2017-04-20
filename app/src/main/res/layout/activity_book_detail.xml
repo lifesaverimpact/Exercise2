@@ -9,26 +9,55 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     tools:context="com.example.jonathan.exercise2.BookDetail">
 
+
     <TextView
-        android:text="TextView"
+        android:text="Book information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/detail_title"
-         />
+        android:id="@+id/myAccount_title"
+        android:layout_gravity="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="cursive"
+        android:layout_marginLeft="5dp"/>
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_blue_dark"/>
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/detail_title"
+        android:fontFamily="serif" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="18dp"
         android:id="@+id/detail_ISBN"
-        />
+        android:fontFamily="serif" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:id="@+id/detail_price"
-        />
+        android:fontFamily="serif" />
 </LinearLayout>

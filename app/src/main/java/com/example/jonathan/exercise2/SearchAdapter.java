@@ -110,8 +110,7 @@ public class SearchAdapter extends ArrayAdapter {
         myViewHolder.titleView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You clicked the title, man!", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(context, "You clicked the title, man!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, BookDetail.class);
                 intent.putExtra("title", myItems.get(position).get("title").toString());
                 intent.putExtra("ISBN", myItems.get(position).get("ISBN").toString());
