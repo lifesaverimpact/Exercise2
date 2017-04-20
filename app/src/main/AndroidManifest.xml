@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Search"></activity>
+        <activity android:name=".Search"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".SearchAdapter" />
+        <activity android:name=".BookDetail" />
+        <activity android:name=".Account"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,7 +21,7 @@ import java.net.URLEncoder;
 
 
 // http://webnautes.tistory.com/828
-public class SignUp extends Activity {
+public class SignUp extends AppCompatActivity {
 
     private EditText editTextName;
     //private EditText editTextAdd;
@@ -123,4 +126,54 @@ public class SignUp extends Activity {
 //       Intent intent_toRegister2 = new Intent(getApplicationContext(), Register2.class);
 //       startActivity(intent_toRegister2);
 //    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        Log.d("test", "onPrepareOptionsMenu - 옵션메뉴가 " +
+//                "화면에 보여질때 마다 호출됨");
+        //if(bLog){ // 로그인 한 상태: 로그인은 안보이게, 로그아웃은 보이게
+        menu.getItem(0).setEnabled(false);
+        menu.getItem(1).setEnabled(false);
+//        }else{ // 로그 아웃 한 상태 : 로그인 보이게, 로그아웃은 안보이게
+//            menu.getItem(0).setEnabled(false);
+//            menu.getItem(1).setEnabled(true);
+//        }
+
+        //bLog = !bLog;   // 값을 반대로 바꿈
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if(id == R.id.myAccount){
+            Toast.makeText(getApplicationContext(), "My Account!", Toast.LENGTH_SHORT).show();
+            return true;
+
+        }
+        else if(id == R.id.logout){
+            Toast.makeText(getApplicationContext(), "Log Out!", Toast.LENGTH_SHORT).show();
+//            SharedPreferences.Editor editor = sessionManager.edit();
+//            editor.remove("key_value");
+//            editor.clear();
+//            Intent i = new Intent(Search.this, SignIn.class);
+//            startActivity(i);
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

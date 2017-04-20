@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -101,7 +103,7 @@ public class SignIn extends AppCompatActivity {
         class InsertData extends AsyncTask<String, Void, String>{
             ProgressDialog loading;
 
-            // chris
+            // TODO chris what is this for?
             String sessionID = "";
 
 
@@ -126,7 +128,7 @@ public class SignIn extends AppCompatActivity {
                     // TODO shared preference set
                     sessionManager = getApplicationContext().getSharedPreferences("sessionID", 0);      // sessionID 는 그야말로 세어드프리퍼런스의 이름이다. 이 이름을 사용하는 한 계속 값을 가져올 수 있다.
                     Editor editor = sessionManager.edit();      // editor 가 필수로 필요하다. 값을 집어넣고 커밋하려면.
-                    editor.putString("key_value", nameToPass);  // key_value 는 내가 지정할 수 있는 영역. sessionID라는 쉐어프리퍼러 에서 하나의 해쉬값을 가진다고 보인다.
+                    editor.putString("key_value", nameToPass);  // key_value 는 내가 지정할 수 있는 영역. sessionID 라는 쉐어프리퍼러 에서 하나의 해쉬값을 가진다고 보인다.
                     editor.commit();
 
                     startActivity(i);
@@ -170,7 +172,7 @@ public class SignIn extends AppCompatActivity {
                         //break;   // 이것이 나를 굉장히 힘들게 만들었따.........
                     }
                     //TODO check actual way to get cookie
-                    sessionID = conn.getHeaderField("Cookie-Set");
+                    sessionID = conn.getHeaderField("Set-Cookie");
 
                     return sb.toString();
                 }
@@ -191,5 +193,54 @@ public class SignIn extends AppCompatActivity {
     public void onClick_signUp (View v){
         Intent intent_toSignUp = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent_toSignUp);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        Log.d("test", "onPrepareOptionsMenu - 옵션메뉴가 " +
+//                "화면에 보여질때 마다 호출됨");
+        //if(bLog){ // 로그인 한 상태: 로그인은 안보이게, 로그아웃은 보이게
+            menu.getItem(0).setEnabled(false);
+            menu.getItem(1).setEnabled(false);
+//        }else{ // 로그 아웃 한 상태 : 로그인 보이게, 로그아웃은 안보이게
+//            menu.getItem(0).setEnabled(false);
+//            menu.getItem(1).setEnabled(true);
+//        }
+
+        //bLog = !bLog;   // 값을 반대로 바꿈
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if(id == R.id.myAccount){
+            Toast.makeText(getApplicationContext(), "My Account!", Toast.LENGTH_SHORT).show();
+            return true;
+
+        }
+        else if(id == R.id.logout){
+            Toast.makeText(getApplicationContext(), "Log Out!", Toast.LENGTH_SHORT).show();
+//            SharedPreferences.Editor editor = sessionManager.edit();
+//            editor.remove("key_value");
+//            editor.clear();
+//            Intent i = new Intent(Search.this, SignIn.class);
+//            startActivity(i);
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
